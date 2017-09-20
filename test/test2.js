@@ -3,7 +3,7 @@ const log = require('../index');
 describe('Principal 2', () => {
   it('Info', (done) => {
     log.info(__filename, 'info', 'test2 message', {obj: 1});
-    log.info(__filename, 'info', 'test2 message', 'obj ', {obj: 1});
+    log.info(__filename, 'info', 'test2 message', 'obj ', {obj: 1, a: { x: [{a: 1, b: 2}, {a: 1, b: 2}, {a: 1, b: 2}, {a: 1, b: 2}] }});
     log.info(__filename, 'info', 'test2 message %s', 'my string');
     log.info(__filename, 'info', 'test2 message %d', 123);
     log.info(__filename, 'info', 'test2 message %j', {number: 123}, {});

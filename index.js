@@ -28,8 +28,7 @@ module.exports.initialize = function (dirname, level) {
             colorize: true,
             handleExceptions: true,
             humanReadableUnhandledException: true,
-            prettyPrint: true,
-            depth: true
+            prettyPrint: true
             // timestamp: function() {
             //   return new Date().toISOString();
             // },
