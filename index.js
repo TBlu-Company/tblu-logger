@@ -70,6 +70,8 @@ function log(level, args) {
   x = x.concat(args);
   if (l) {
     l.log.apply(l, x);
+  } else {
+    setTimeout(function() { log(level, args); }, 300);
   }
 }
 module.exports.info = function () {
