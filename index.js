@@ -72,6 +72,7 @@ function log(level, args) {
   if (l) {
     l.log.apply(l, x);
   } else {
+    console.log('Esperando o log');
     setTimeout(function() { log(level, args); }, 300);
   }
 }
