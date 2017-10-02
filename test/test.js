@@ -3,10 +3,6 @@ const path = require('path');
 const dirname = path.dirname(__filename);
 const log = require('../index');
 describe('Principal', () => {
-  it('Inicializar', (done) => {
-    log.initialize(dirname, 'debug');
-    done();
-  });
   // it('Info', (done) => {
   //   log.info(__filename, 'info', 'test message', {obj: 1});
   //   log.info(__filename, 'info', 'test message', 'obj ', {obj: 1});
@@ -31,6 +27,10 @@ describe('Principal', () => {
     } catch (err) {
       log.error(__filename, 'error', 'test message', 'TypeError', err);
     }
+    done();
+  });
+  it('Inicializar', (done) => {
+    log.initialize(dirname, 'debug');
     done();
   });
   // it('Debug', (done) => {

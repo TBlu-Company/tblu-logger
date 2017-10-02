@@ -64,10 +64,11 @@ module.exports.initialize = function (dirname, level) {
 };
 
 function log(level, args) {
-  let message = '[' + args[0] + '] ' + '[' + args[1] + ']' + ' - ' + args[2];
-  args.splice(0, 3);
+  let clone = args.slice();
+  let message = '[' + clone[0] + '] ' + '[' + clone[1] + ']' + ' - ' + clone[2];
+  clone.splice(0, 3);
   let x = [level, message];
-  x = x.concat(args);
+  x = x.concat(clone);
   if (l) {
     l.log.apply(l, x);
   } else {
