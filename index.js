@@ -44,6 +44,16 @@ module.exports.initialize = function (dirname, level) {
             //   s += testObj(options.meta.objeto);
             //   return s;
             // }
+          }),
+          new (winston.transports.File)({
+            name: 'error-file',
+            filename: logDir + '/filelog-error-cli.log',
+            level: 'error',
+            json: false,
+            colorize: true,
+            handleExceptions: true,
+            humanReadableUnhandledException: true,
+            prettyPrint: true
           })
           // new (winston.transports.File)({
           //   name: 'info-file-json',
