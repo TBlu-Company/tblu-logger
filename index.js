@@ -4,31 +4,32 @@ const fs = require('fs');
 let l;
 
 module.exports.initialize = function (dirname, level) {
-  if (!level) {
-    level = 'debug';
-  }
-  if (!dirname) {
-    throw new Error('Cant initialize log, dirname is require');
-  }
-  let logDir = dirname + '/log';
-  fs.mkdir(logDir, (err) => {
-    if (err && err.errno !== -17) {
-      console.log(err);
-      throw new Error('Cant create log dir: ' + logDir);
-    } else {
-      l = new (winston.Logger)({
-        level: level,
-        exitOnError: false,
-        transports: [
-          new (winston.transports.File)({
-            name: 'debug-file',
-            filename: logDir + '/filelog-debug-cli.log',
-            level: 'debug',
-            json: false,
-            colorize: true,
-            handleExceptions: true,
-            humanReadableUnhandledException: true,
-            prettyPrint: true
+  return new Promise((resolve, reject) => {
+    if (!level) {
+      level = 'debug';
+    }
+    if (!dirname) {
+      reject(new Error('Cant initialize log, dirname is require'));
+    }
+    let logDir = dirname + '/log';
+    fs.mkdir(logDir, (err) => {
+      if (err && err.errno !== -17) {
+        console.log(err);
+        reject(new Error('Cant create log dir: ' + logDir));
+      } else {
+        l = new (winston.Logger)({
+          level: level,
+          exitOnError: false,
+          transports: [
+            new (winston.transports.File)({
+              name: 'debug-file',
+              filename: logDir + '/filelog-debug-cli.log',
+              level: 'debug',
+              json: false,
+              colorize: true,
+              handleExceptions: true,
+              humanReadableUnhandledException: true,
+              prettyPrint: true
             // timestamp: function() {
             //   return new Date().toISOString();
             // },
@@ -44,17 +45,17 @@ module.exports.initialize = function (dirname, level) {
             //   s += testObj(options.meta.objeto);
             //   return s;
             // }
-          }),
-          new (winston.transports.File)({
-            name: 'error-file',
-            filename: logDir + '/filelog-error-cli.log',
-            level: 'error',
-            json: false,
-            colorize: true,
-            handleExceptions: true,
-            humanReadableUnhandledException: true,
-            prettyPrint: true
-          })
+            }),
+            new (winston.transports.File)({
+              name: 'error-file',
+              filename: logDir + '/filelog-error-cli.log',
+              level: 'error',
+              json: false,
+              colorize: true,
+              handleExceptions: true,
+              humanReadableUnhandledException: true,
+              prettyPrint: true
+            })
           // new (winston.transports.File)({
           //   name: 'info-file-json',
           //   filename: dirname + '/log/filelog-info-json.log',
@@ -67,9 +68,11 @@ module.exports.initialize = function (dirname, level) {
           //   level: 'error',
           //   json: false
           // })
-        ]
-      });
-    }
+          ]
+        });
+        resolve('done');
+      }
+    });
   });
 };
 
